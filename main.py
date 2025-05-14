@@ -11,30 +11,35 @@ def menu_iniciar():
 
 while True:
     print("\n~~~~ MENU DE OPÇÕES ~~~~")
-    print("1. Listar tarefas")
-    print("2. Concluir tarefas")
-    print("3. Excluir tarefas")
-    print("4. Sair")
+    print("1. Adicionar tarefa")
+    print("2. Listar tarefas")
+    print("3. Concluir tarefas")
+    print("4. Excluir tarefas")
+    print("5. Sair")
 
     opcao = input("Escolha uma opção: ")
 
     if opcao == "1":
-        listar_tarefas()
+        menu_iniciar() 
 
     elif opcao == "2":
+        listar_tarefas()
+
+    elif opcao == "3":
         try:
             indice = int(input("Digite o número da tarefa que deseja concluir: "))
             concluir_tarefa(indice)
         except ValueError:
             print("Digite um número válido.") 
 
-    elif opcao == "3":
+    elif opcao == "4":
         try:
             indice = int(input("Digite o número da tarefa que deseja excluir: "))
+            excluir_tarefa(indice)
         except ValueError:
             print("Digite um número válido.")
 
-    elif opcao == "4":
+    elif opcao == "5":
         print("Saindo...")
         break
 
