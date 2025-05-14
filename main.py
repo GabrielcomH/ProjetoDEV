@@ -5,7 +5,7 @@ def menu_iniciar():
     titulo = input("Título: ")
     descricao = input("Descrição: ")
     data = input("Data (DD/MM/AAAA): ")
-    prioridade = ("Prioridade (Alta, Média ou Baixa): ")
+    prioridade = input("Prioridade (Alta, Média ou Baixa): ")
 
     adicionar_tarefa(titulo, descricao, data, prioridade)   
 
