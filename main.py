@@ -1,3 +1,4 @@
+print("isso é um teste no linux dentro da main.py")
 from tarefas import adicionar_tarefa, listar_tarefas, concluir_tarefa, excluir_tarefa
 
 def menu_adicionar_tarefa():
