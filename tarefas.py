@@ -1,6 +1,6 @@
 import json
 import os
-import datetime import datetime, timedelta 
+from datetime import datetime, timedelta 
 
 CAMINHO_DO_ARQUIVO = "data/tarefa.json"
 
@@ -82,10 +82,11 @@ def filtrar_tarefas_por_status(status_desejado):
     if not os.path.exists(CAMINHO_DO_ARQUIVO):
         print("\n ❌Nenhuma tarefa cadastrada❌")
         return
+    
     with open(CAMINHO_DO_ARQUIVO, "r", enconding="utf-8") as f:
         tarefas = json.load(f)
 
-    filtradas = [t for t in tarefas t["status"].lower() == status_desejado.lower()]
+    filtradas = [t for t in tarefas if t["status"].lower() == status_desejado.lower()]
 
     if not filtradas:
         print(f"\n📂Nenhuma tarefa com status'{status_desejado}'📂\n") 
@@ -96,7 +97,7 @@ def filtrar_tarefas_por_status(status_desejado):
         print(f"\n[{i}] {tarefa['titulo']} - {tarefa['status'].capitalize()}")
         print(f"Descrição: {tarefa['descricao']}")
         print(f"Data: {tarefa['data']}")
-        print)f"Prioridade: {tarefa['prioridade']}"
+        print(f"Prioridade: {tarefa['prioridade']}")
 
 def verificar_prazos():
     if not os.path.exist(CAMINHO_DO_ARQUIVO):    
@@ -105,23 +106,23 @@ def verificar_prazos():
     with open(CAMINHO_DO_ARQUIVO, "r", enconding="urf-8") as f:
         tarefas = json.load(f)
 
-    hoje = datatime.today()
+    hoje = datetime.today()
 
-    for tarefa in tarefa:
+    for tarefa in tarefas:
         try:
-            data_tarefa = datatime.strptime(tarefa["data"], "%d/%m/%Y")
+            data_tarefa = datetime.strptime(tarefa["data"], "%d/%m/%Y")
             dias_restantes = (data_tarefa - hoje).days
 
-        if tarefa["status"] == "concluída":
-            continue
+            if tarefa["status"] == "concluída":
+                continue
 
-        if dias_restantes < 0:
-            print(f"⚠️Tarefa VENCIDA: {tarefa['titulo']} (vencida em {tarefa['data']})⚠️")
-        elif dias_restantes <=2:
-            print(f"Tarefa próxima do vencimento: {tarefa['titulo']} (vence em{tarefa['data']})")
+            if dias_restantes < 0:
+                print(f"⚠️Tarefa VENCIDA: {tarefa['titulo']} (vencida em {tarefa['data']})⚠️")
+            elif dias_restantes <=2:
+                print(f"Tarefa próxima do vencimento: {tarefa['titulo']} (vence em{tarefa['data']})")
 
-    except ValueError:
-        print(f"❌Data inválida na tarefa: {tarefa['titulo']}")  
+        except ValueError:
+            print(f"❌Data inválida na tarefa: {tarefa['titulo']}")  
 
 
 
