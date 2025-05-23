@@ -1,4 +1,12 @@
-from tarefas import adicionar_tarefa, listar_tarefas, concluir_tarefa, excluir_tarefa, filtrar_tarefas_por_status, verificar_prazos
+from tarefas import (    
+    adicionar_tarefa, 
+    listar_tarefas, 
+    concluir_tarefa, 
+    excluir_tarefa, 
+    filtrar_tarefas_por_status, 
+    verificar_prazos
+
+)
 
 def menu_adicionar_tarefa():
     print("~~~~ Adicionar Nova Tarefa ~~~~")
@@ -34,10 +42,10 @@ def menu():
                 concluir_tarefa(indice)
             except ValueError:
                 print("Digite um número válido.") 
-
         elif opcao == "4":
             try:
                 indice = int(input("Digite o número da tarefa que deseja excluir: "))
+                excluir_tarefa(indice)
             except ValueError:
                 print("Digite um número válido.")
         
@@ -46,7 +54,7 @@ def menu():
             filtrar_tarefas_por_status(status)
 
         elif opcao == "6":
-            verificar_prazos
+            verificar_prazos()
 
         elif opcao == "7":
             print("Saindo...")
@@ -55,5 +63,5 @@ def menu():
         else:
             print("Opção inválida. Tente novamente.")      
 
-    if __name__ == "__main__":
-        menu()
+if __name__ == "__main__":
+    menu()
