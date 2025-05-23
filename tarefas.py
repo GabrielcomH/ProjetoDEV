@@ -83,7 +83,7 @@ def filtrar_tarefas_por_status(status_desejado):
         print("\n ❌Nenhuma tarefa cadastrada❌")
         return
     
-    with open(CAMINHO_DO_ARQUIVO, "r", enconding="utf-8") as f:
+    with open(CAMINHO_DO_ARQUIVO, "r", encoding="utf-8") as f:
         tarefas = json.load(f)
 
     filtradas = [t for t in tarefas if t["status"].lower() == status_desejado.lower()]
@@ -100,10 +100,10 @@ def filtrar_tarefas_por_status(status_desejado):
         print(f"Prioridade: {tarefa['prioridade']}")
 
 def verificar_prazos():
-    if not os.path.exist(CAMINHO_DO_ARQUIVO):    
+    if not os.path.exists(CAMINHO_DO_ARQUIVO):    
         return    
 
-    with open(CAMINHO_DO_ARQUIVO, "r", enconding="urf-8") as f:
+    with open(CAMINHO_DO_ARQUIVO, "r", enconding="utf-8") as f:
         tarefas = json.load(f)
 
     hoje = datetime.today()
