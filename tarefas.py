@@ -122,7 +122,7 @@ def verificar_prazos():
                 print(f"Tarefa próxima do vencimento: {tarefa['titulo']} (vence em{tarefa['data']})")
 
         except ValueError:
-            print(f"❌Data inválida na tarefa: {tarefa['titulo']}")  
+            print(f"❌Data inválida na tarefa: {tarefa['titulo"]}")
 
 def ordenar_tarefas(criterio="data"): # Ordenar tarefas por data ou prioridade
     tarefas = carregar_tarefas()
@@ -159,28 +159,6 @@ def carregar_tarefas(): # Funções utilitárias para evitar repetição
 def salvar_tarefas(tarefas):
     with open(CAMINHO_DO_ARQUIVO, "w", encoding="utf-8") as f:
         json.dump(tarefas, f, indent=4, ensure_ascii=False)
-
-def verificar_prazos(): # Notificações de vencimento e tarefas próximas
-    tarefas = carregar_tarefas()
-    if tarefas is None:
-        return
-
-    hoje = datetime.today()
-
-    for tarefa in tarefas:
-        if tarefa["status"] == "concluída":
-            continue
-
-        try:
-            data_tarefa = datetime.strptime(tarefa["data"], "%d/%m/%Y")
-            dias_restantes = (data_tarefa - hoje).days
-
-            if dias_restantes < 0:
-                print(f"⚠️ Tarefa VENCIDA: {tarefa['titulo']} (vencida em {tarefa['data']})")
-            elif dias_restantes <= 2:
-                print(f"⏰ Tarefa próxima do vencimento: {tarefa['titulo']} (vence em {tarefa['data']})")
-        except ValueError:
-            print(f"❌ Data inválida na tarefa: {tarefa['titulo']}")
 
 
 
