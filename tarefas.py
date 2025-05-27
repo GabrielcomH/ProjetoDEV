@@ -122,9 +122,43 @@ def verificar_prazos():
                 print(f"Tarefa próxima do vencimento: {tarefa['titulo']} (vence em{tarefa['data']})")
 
         except ValueError:
-            print(f"❌Data inválida na tarefa: {tarefa['titulo']}")  
+            print(f"❌Data inválida na tarefa: {tarefa['titulo"]}")
 
+def ordenar_tarefas(criterio="data"): # Ordenar tarefas por data ou prioridade
+    tarefas = carregar_tarefas()
+    if tarefas is None:
+        print("\n❌ Nenhuma tarefa cadastrada ❌\n")
+        return
 
+    if criterio == "data":
+        try:
+            tarefas.sort(key=lambda t: datetime.strptime(t["data"], "%d/%m/%Y"))
+        except ValueError:
+            print("⚠️ Formato de data inválido em alguma tarefa.")
+            return
+    elif criterio == "prioridade":
+        prioridades = {"alta": 1, "média": 2, "baixa": 3}
+        tarefas.sort(key=lambda t: prioridades.get(t["prioridade"].lower(), 4))
+    else:
+        print("❌ Critério de ordenação inválido. Use 'data' ou 'prioridade'.")
+        return
+
+    print(f"\n📋 Tarefas ordenadas por {criterio}:")
+    for i, tarefa in enumerate(tarefas):
+        print(f"\n[{i}] {tarefa['titulo']} - {tarefa['status'].capitalize()}")
+        print(f"Descrição: {tarefa['descricao']}")
+        print(f"Data: {tarefa['data']}")
+        print(f"Prioridade: {tarefa['prioridade']}")
+
+def carregar_tarefas(): # Funções utilitárias para evitar repetição
+    if not os.path.exists(CAMINHO_DO_ARQUIVO):
+        return None
+    with open(CAMINHO_DO_ARQUIVO, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def salvar_tarefas(tarefas):
+    with open(CAMINHO_DO_ARQUIVO, "w", encoding="utf-8") as f:
+        json.dump(tarefas, f, indent=4, ensure_ascii=False)
 
 
 
