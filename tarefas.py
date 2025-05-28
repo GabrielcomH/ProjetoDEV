@@ -24,7 +24,7 @@ def adicionar_tarefa(titulo, descricao, data, prioridade):
     with open(CAMINHO_DO_ARQUIVO, "w", encoding="utf=8") as f:
         json.dump(tarefas, f, indent=4, ensure_ascii=False)
 
-    print("✅Tarefa adicionada com sucesso!✅") 
+    print("✅ Tarefa adicionada com sucesso!") 
 
 def listar_tarefas():
     if not os.path.exists(CAMINHO_DO_ARQUIVO):
@@ -35,7 +35,7 @@ def listar_tarefas():
         tarefas = json.load(f)
 
     if not tarefas:
-        print("\n📂Lista de tarefas vazia📂\n")
+        print("\n📂 Lista de tarefas vazia.\n")
         return
     
     print("\n~~~~ LISTA DE TAREFAS ~~~~")
@@ -47,7 +47,7 @@ def listar_tarefas():
 
 def concluir_tarefa(indice):
     if not os.path.exists(CAMINHO_DO_ARQUIVO):
-        print("\n❌Nenhuma tarefa encontrada❌\n")
+        print("\n❌ Nenhuma tarefa encontrada.\n")
         return
 
     with open(CAMINHO_DO_ARQUIVO, "r", encoding="utf-8") as f:
@@ -57,14 +57,14 @@ def concluir_tarefa(indice):
         tarefas[indice]["status"] = "concluída"
         with open(CAMINHO_DO_ARQUIVO, "w", encoding="utf-8") as f:
             json.dump(tarefas, f, indent=4, ensure_ascii=False)
-        print("\n✅Tarefa marcada como concluída✅\n")
+        print("\n✅ Tarefa marcada como concluída.\n")
     else:
-        print("\n❌Índice inválido❌\n")
+        print("\n❌ Índice inválido.\n")
 
 
 def excluir_tarefa(indice):
     if not os.path.exists(CAMINHO_DO_ARQUIVO):
-        print("\n❌Nenhuma tarefa para excluir❌\n")
+        print("\n❌ Nenhuma tarefa para excluir.\n")
         return
 
     with open(CAMINHO_DO_ARQUIVO, "r", encoding="utf-8") as f:
@@ -74,13 +74,13 @@ def excluir_tarefa(indice):
         tarefa_removida = tarefas.pop(indice)
         with open(CAMINHO_DO_ARQUIVO, "w", encoding="utf-8") as f:
             json.dump(tarefas, f, indent=4, ensure_ascii=False)
-        print(f"\n✅Tarefa '{tarefa_removida['titulo']}' excluída com sucesso✅\n")
+        print(f"\n✅ Tarefa '{tarefa_removida['titulo']}' excluída com sucesso.\n")
     else:
-        print("\n❌ Índice inválido❌\n")
+        print("\n❌ Índice inválido.\n")
 
 def filtrar_tarefas_por_status(status_desejado):
     if not os.path.exists(CAMINHO_DO_ARQUIVO):
-        print("\n ❌Nenhuma tarefa cadastrada❌")
+        print("\n❌ Nenhuma tarefa cadastrada.")
         return
     
     with open(CAMINHO_DO_ARQUIVO, "r", encoding="utf-8") as f:
@@ -89,7 +89,7 @@ def filtrar_tarefas_por_status(status_desejado):
     filtradas = [t for t in tarefas if t["status"].lower() == status_desejado.lower()]
 
     if not filtradas:
-        print(f"\n📂Nenhuma tarefa com status'{status_desejado}'📂\n") 
+        print(f"\n📂 Nenhuma tarefa com status'{status_desejado}'.\n") 
         return
 
     print(f"\n~~~~ TAREFAS {status_desejado.upper()}S ~~~~")
@@ -117,17 +117,17 @@ def verificar_prazos():
                 continue
 
             if dias_restantes < 0:
-                print(f"⚠️Tarefa VENCIDA: {tarefa['titulo']} (vencida em {tarefa['data']})⚠️")
+                print(f"🔴 Tarefa VENCIDA: {tarefa['titulo']} (vencida em {tarefa['data']}).")
             elif dias_restantes <=2:
-                print(f"Tarefa próxima do vencimento: {tarefa['titulo']} (vence em{tarefa['data']})")
+                print(f"🟡 Tarefa próxima do vencimento: {tarefa['titulo']} (vence em{tarefa['data']}).")
 
         except ValueError:
-            print(f"❌Data inválida na tarefa: {tarefa['titulo"]}")
+            print(f"❌ Data inválida na tarefa: {tarefa['titulo']}.")
 
 def ordenar_tarefas(criterio="data"): # Ordenar tarefas por data ou prioridade
     tarefas = carregar_tarefas()
     if tarefas is None:
-        print("\n❌ Nenhuma tarefa cadastrada ❌\n")
+        print("\n❌ Nenhuma tarefa cadastrada.\n")
         return
 
     if criterio == "data":
