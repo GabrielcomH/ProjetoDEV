@@ -1,23 +1,23 @@
 [
     {
-        "titulo": "test 2",
-        "descricao": "outro teste",
-        "data": "30/09/2004",
-        "prioridade": "Prioridade (Alta, Média ou Baixa): ",
-        "status": "concluída"
-    },
-    {
         "titulo": "teste novo",
         "descricao": "teste de novo",
         "data": "30/09/2004",
         "prioridade": "Alta",
-        "status": "pendente"
+        "status": "concluída"
     },
     {
         "titulo": "testar",
         "descricao": "fazer logo",
         "data": "12/06/2025",
         "prioridade": "Alta",
+        "status": "concluída"
+    },
+    {
+        "titulo": "teste novo",
+        "descricao": "testar",
+        "data": "01/06/2025",
+        "prioridade": "Média",
         "status": "pendente"
     }
 ]

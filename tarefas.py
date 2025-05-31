@@ -21,7 +21,7 @@ def adicionar_tarefa(titulo, descricao, data, prioridade):
     }
     tarefas.append(nova_tarefa)
 
-    with open(CAMINHO_DO_ARQUIVO, "w", encoding="utf=8") as f:
+    with open(CAMINHO_DO_ARQUIVO, "w", encoding="utf-8") as f:
         json.dump(tarefas, f, indent=4, ensure_ascii=False)
 
     print("✅ Tarefa adicionada com sucesso!") 
@@ -103,7 +103,7 @@ def verificar_prazos():
     if not os.path.exists(CAMINHO_DO_ARQUIVO):    
         return    
 
-    with open(CAMINHO_DO_ARQUIVO, "r", enconding="utf-8") as f:
+    with open(CAMINHO_DO_ARQUIVO, "r", encoding="utf-8") as f:
         tarefas = json.load(f)
 
     hoje = datetime.today()
@@ -119,7 +119,7 @@ def verificar_prazos():
             if dias_restantes < 0:
                 print(f"🔴 Tarefa VENCIDA: {tarefa['titulo']} (vencida em {tarefa['data']}).")
             elif dias_restantes <=2:
-                print(f"🟡 Tarefa próxima do vencimento: {tarefa['titulo']} (vence em{tarefa['data']}).")
+                print(f"🟡 Tarefa próxima do vencimento: {tarefa['titulo']} (vence em {tarefa['data']}).")
 
         except ValueError:
             print(f"❌ Data inválida na tarefa: {tarefa['titulo']}.")
@@ -160,6 +160,17 @@ def salvar_tarefas(tarefas):
     with open(CAMINHO_DO_ARQUIVO, "w", encoding="utf-8") as f:
         json.dump(tarefas, f, indent=4, ensure_ascii=False)
 
+def reabrir_tarefa(indice):
+    tarefas = carregar_tarefas()
+    if tarefas is None:
+        print("\n❌ Nenhuma tarefa para reabrir.\n")
+        return
+    if 0 <= indice < len(tarefas):
+        tarefas[indice]["status"] = "pendente"
+        salvar_tarefas(tarefas)
+        print("\n✅ Tarefa reaberta com sucesso.\n")
+    else:
+        print("\n❌ Índice inválido.\n")
 
 
 
