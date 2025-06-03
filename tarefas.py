@@ -46,21 +46,25 @@ def listar_tarefas():
         print(f"Prioridade: {tarefa['prioridade']}")
 
 def concluir_tarefa(indice):
-    if not os.path.exists(CAMINHO_DO_ARQUIVO):
-        print("\n❌ Nenhuma tarefa encontrada.\n")
-        return
+    try:
+        if not os.path.exists(CAMINHO_DO_ARQUIVO):
+            return False, "Nenhuma tarefa encontrada"
+        
+        with open(CAMINHO_DO_ARQUIVO, "r", encoding="utf-8") as f:
+            tarefas = json.load(f)
 
-    with open(CAMINHO_DO_ARQUIVO, "r", encoding="utf-8") as f:
-        tarefas = json.load(f)
-
-    if 0 <= indice < len(tarefas):
-        tarefas[indice]["status"] = "concluída"
-        with open(CAMINHO_DO_ARQUIVO, "w", encoding="utf-8") as f:
-            json.dump(tarefas, f, indent=4, ensure_ascii=False)
-        print("\n✅ Tarefa marcada como concluída.\n")
-    else:
-        print("\n❌ Índice inválido.\n")
-
+        if 0 <= indice < len(tarefas):
+            if tarefas[indice]["status"] == "concluída":
+                return False, "Tarefa já está concluída"
+                
+            tarefas[indice]["status"] = "concluída"
+            with open(CAMINHO_DO_ARQUIVO, "w", encoding="utf-8") as f:
+                json.dump(tarefas, f, indent=4, ensure_ascii=False)
+            return True, "Tarefa concluída com sucesso"
+        else:
+            return False, "Índice inválido"
+    except Exception as e:
+        return False, f"Erro ao concluir tarefa: {str(e)}"
 
 def excluir_tarefa(indice):
     if not os.path.exists(CAMINHO_DO_ARQUIVO):
