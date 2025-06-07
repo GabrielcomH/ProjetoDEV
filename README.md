@@ -34,7 +34,8 @@ Este é um sistema de gerenciamento de tarefas simples desenvolvido em Python. O
 ## ▶️ Como executar
 Execute o arquivo interface.py para iniciar a aplicação com a interface gráfica:
 ```
-python3 interface.py
+python3 interface.py (para Linux)
+python interface.py (para Windows)
 ```
 ## 🧠 Como usar o sistema
 Ao iniciar o programa, uma tela de carregamento será exibida, seguida pelo menu principal com as opções:
